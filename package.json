@@ -4,7 +4,7 @@
   "description": "A battleship app. This project is part of The Odin Project Curriculum to practice using TDD principles with jest, as well as more practice with OOP and modular program design.",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/jasondewese/odin-battleship#readme",
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
     "css-loader": "^6.7.1",
+    "jest": "^27.5.1",
     "style-loader": "^3.3.1",
     "webpack": "^5.71.0",
     "webpack-cli": "^4.9.2"
