@@ -6,7 +6,7 @@ const Ship = (shipLength) => {
 
     const _initializeStatus = (() => {
         let hits = [];
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < _length; i++) {
             _hitStatus.push(false);
         }
     })();

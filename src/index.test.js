@@ -1,9 +1,11 @@
 import {Ship} from './Ship';
 
-/*
-const ship1 = Ship(3);
-ship1.hit(0);
-ship1.hit(1);
-ship1.hit(2);
-const hitStatus = ship1.getHitStatus();
-*/
+
+
+test('Ship hit function', () => {
+    const ship1 = Ship(3);
+    ship1.hit(1);
+    const hitStatus = ship1.getHitStatus();
+
+    expect(hitStatus).toStrictEqual([false,true,false]);
+});
