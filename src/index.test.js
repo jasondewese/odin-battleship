@@ -1,6 +1,9 @@
-import {sum} from './index';
+import {Ship} from './Ship';
 
-test('sum a and b', () => {
-    expect(sum(10,5)).toBe(15);
-    expect(sum(5,-7)).toBe(-2);
-});
+/*
+const ship1 = Ship(3);
+ship1.hit(0);
+ship1.hit(1);
+ship1.hit(2);
+const hitStatus = ship1.getHitStatus();
+*/
