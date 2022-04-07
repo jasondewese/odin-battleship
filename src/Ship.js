@@ -14,18 +14,17 @@ const Ship = (shipLength) => {
 
     const hit = (index) => {
         _hitStatus[index] = true;
-    }
-
-    const getHitStatus = () => {
         return _hitStatus;
     }
+
+    
 
     const isSunk = () => {
         
     }
    
 
-    return {isSunk, getHitStatus, hit};
+    return {isSunk, hit};
 }
 
 export {Ship};
