@@ -20,7 +20,14 @@ const Ship = (shipLength) => {
     
 
     const isSunk = () => {
-        
+        _sunk = true;
+        for (const hit of _hitStatus) {
+            if (hit == false) {
+                _sunk = false;
+            }
+        }
+
+        return _sunk;
     }
    
 
