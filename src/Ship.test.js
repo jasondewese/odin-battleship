@@ -1,7 +1,6 @@
 import {Ship} from './Ship';
 
 
-
 test('Ship hit function change index from false to true', () => {
     const ship1 = Ship(3);
     
@@ -15,3 +14,4 @@ test('Ship isSunk returns true if all spaces hit', () => {
     ship1.hit(1);
     expect(ship1.isSunk()).toBe(true);
 });
+
