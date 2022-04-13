@@ -48,6 +48,7 @@ test('getShotStatus returns "HIT" for hit, "MISS" for miss, or "No shot fired"',
     gameboard.receiveAttack(0,0);
     gameboard.receiveAttack(5,5);
 
+
     expect(gameboard.getShotStatus(0,0)).toBe('HIT');
     expect(gameboard.getShotStatus(5,5)).toBe('MISS');
     expect(gameboard.getShotStatus(8,8)).toBe('No shot fired');
