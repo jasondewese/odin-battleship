@@ -22,11 +22,34 @@ test('receiveAttack determines hit or miss properly', () => {
     expect(gameboard.receiveAttack(7,7)).toBe('MISS');
 });
 
-test('receiveAttack calls Ship.hit on appropriate ship if a hit occurs', () => {
-    let gameboard = Gameboard();
-    gameboard.placeShip(0,0,0,1,1);
-    gameboard.placeShip(2,2,2,4,2);
-    expect(gameboard.receiveAttack(0,0)).toBe('HIT');
-    expect(gameboard.receiveAttack(0,5)).toBe('MISS');
 
+test('isAllSunk returns true if all ships sunk, false otherwise', () => {
+    let gameboard = Gameboard();
+    
+    //place all 5 ships
+    for (let i = 0; i < 5; i++) {
+        gameboard.placeShip(i,0,i,i,i);
+    }
+
+    //sink all 5 ships
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j <= i; j++) {
+            expect(gameboard.isAllSunk()).toBe(false);
+            gameboard.receiveAttack(j,i);
+        }
+    } 
+    
+    expect(gameboard.isAllSunk()).toBe(true);
+});
+
+test('getShotStatus returns "HIT" for hit, "MISS" for miss, or "No shot fired"', () => {
+    let gameboard = Gameboard();
+    gameboard.placeShip(0,0,0,0,0);
+    gameboard.receiveAttack(0,0);
+    gameboard.receiveAttack(5,5);
+
+    expect(gameboard.getShotStatus(0,0)).toBe('HIT');
+    expect(gameboard.getShotStatus(5,5)).toBe('MISS');
+    expect(gameboard.getShotStatus(8,8)).toBe('No shot fired');
+    expect(() => {gameboard.getShotStatus(11,11)}).toThrow('Invalid coordinates received. Out of bounds');
 });

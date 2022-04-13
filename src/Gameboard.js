@@ -2,6 +2,8 @@ import { Ship } from "./Ship";
 
 const Gameboard = () => {
     const _BOARDSIZE = 10;
+    const _MISS = 0;
+    const _HIT = 1;
     let _board = [];
     let _shipList = [];
     let _shotsFired = [];
@@ -51,20 +53,57 @@ const Gameboard = () => {
     }
 
     const receiveAttack = (x1,y1) => {
-        const MISS = 0;
-        const HIT = 1;
-        const boardValue = typeof _board[x1][y1] === 'object' ? _board[x1][y1].ship : _board[x1][y1];
-
-        if (boardValue !== -1) {
-            _shipList[boardValue].hit(_board[x1][y1].shipIndex);
+                
+        if (typeof _board[x1][y1] === 'object') {
+            _shipList[_board[x1][y1].ship].hit(_board[x1][y1].shipIndex);
+            _shotsFired[x1][y1] = _HIT;
             return 'HIT';
         }
         else {
+            _shotsFired[x1][y1] = _MISS;
             return 'MISS';
         }
     }
 
-    return {placeShip, receiveAttack};
+    const isAllSunk = () => {
+        let allSunk = true;
+
+        for (const ship of _shipList) {
+            if (!ship.isSunk()) {
+                allSunk = false;
+            }
+        }
+
+        return allSunk;
+    }
+
+    const getShotStatus = (x, y) => {
+        if (x >= _BOARDSIZE || y >= _BOARDSIZE) {
+            throw new Error('Invalid coordinates received. Out of bounds');
+        }
+        if (x < 0 || y < 0) {
+            throw new Error('Invalid coordinates received. Out of bounds');
+        }
+        
+        let status = _shotsFired[x][y];
+
+        if (status === -1) {
+            return 'No shot fired';
+        }
+        else if (status === _HIT) {
+            return 'HIT';
+        }
+        else if (status === _MISS) {
+            return 'MISS';
+        }
+        else {
+            throw new Error('Invalid coordinate received');
+        }
+
+        
+    }
+
+    return {placeShip, receiveAttack, isAllSunk, getShotStatus};
 }
 
 export {Gameboard};
