@@ -15,7 +15,7 @@ test('placeShip returns error for invalid ship or coordinates', () => {
 
 test('receiveAttack determines hit or miss properly', () => {
     let gameboard = Gameboard();
-    gameboard.placeShip(0,0,0,1,1);
+    gameboard.placeShip(0,0,0,1,0);
     gameboard.placeShip(2,2,2,4,2);
 
     expect(gameboard.receiveAttack(0,0)).toBe('HIT');
@@ -28,7 +28,13 @@ test('isAllSunk returns true if all ships sunk, false otherwise', () => {
     
     //place all 5 ships
     for (let i = 0; i < 5; i++) {
-        gameboard.placeShip(i,0,i,i,i);
+        if (i === 0) {
+            gameboard.placeShip(i,0,i,i+1,i); 
+        }
+        else {
+            gameboard.placeShip(i,0,i,i,i);
+        }
+        
     }
 
     //sink all 5 ships
@@ -36,15 +42,18 @@ test('isAllSunk returns true if all ships sunk, false otherwise', () => {
         for (let j = 0; j <= i; j++) {
             expect(gameboard.isAllSunk()).toBe(false);
             gameboard.receiveAttack(j,i);
+            if (i === 0) {
+                gameboard.receiveAttack(j+1,i);
+            }
         }
     } 
-    
+    //console.log(gameboard.printBoard());
     expect(gameboard.isAllSunk()).toBe(true);
 });
 
 test('getShotStatus returns "HIT" for hit, "MISS" for miss, or "No shot fired"', () => {
     let gameboard = Gameboard();
-    gameboard.placeShip(0,0,0,0,0);
+    gameboard.placeShip(0,0,0,1,0);
     gameboard.receiveAttack(0,0);
     gameboard.receiveAttack(5,5);
 

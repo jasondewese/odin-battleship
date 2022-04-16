@@ -21,7 +21,13 @@ const Gameboard = () => {
 
     const _initShips = (() => {
         for (let i = 1; i <= 5; i++) {
-            _shipList.push(Ship(i));
+            if (i === 1) {
+                _shipList.push(Ship(i+1));
+            }
+            else {
+                _shipList.push(Ship(i));
+            }
+            
         }
     })();
 
@@ -103,7 +109,20 @@ const Gameboard = () => {
         
     }
 
-    return {placeShip, receiveAttack, isAllSunk, getShotStatus};
+    const printBoard = () => {
+        let boardStr = ''; 
+
+        for (let i = 0; i < _BOARDSIZE; i++) {
+            
+            for (let j = 0; j < _BOARDSIZE; j++) {
+                boardStr += _board[i][j] + ', ';
+            }
+            boardStr += '\n';
+        }
+        return boardStr;
+    }
+
+    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard};
 }
 
 export {Gameboard};
