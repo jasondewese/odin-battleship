@@ -13,8 +13,10 @@ body {
     display: grid;
     grid-template-rows: 6rem 1fr 3rem;
     background-color: #1e3a8a;
+    color: #e5e5e5;
 }
 
+/*Header style*/
 header {
     border: 1px solid black;
     display: flex;
@@ -24,14 +26,42 @@ header {
 
 h1 {
     font-size: 3rem;
-    color: #e5e5e5;
 }
+/*End Header style*/
 
+/*Main game area style*/
 main {
     border: 1px solid black;
+    display: grid;
+    grid-template-rows: 5rem 3rem 1fr;
+    align-items: center;
+    justify-items: center;
 }
 
+.board-section {
+    display: flex;
+    /*To allow easy insertion of second gameboard to screen*/
+    justify-content: space-around;
+    gap: 100px;
+}
+
+#axis-button {
+    height: 2rem;
+    width: 8rem;
+}
+
+
+
+.board-wrapper {
+    border: 3px solid #fafafa;
+    width: 500px;
+    height: 500px;
+}
+/*End Main game area style*/
+
+/*Footer style*/
 footer {
     border: 1px solid black;
     background-color: #e5e5e5;
 }
+/*End Footer style*/
