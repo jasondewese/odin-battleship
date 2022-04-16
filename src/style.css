@@ -18,7 +18,7 @@ body {
 
 /*Header style*/
 header {
-    border: 1px solid black;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +31,7 @@ h1 {
 
 /*Main game area style*/
 main {
-    border: 1px solid black;
+    
     display: grid;
     grid-template-rows: 5rem 3rem 1fr;
     align-items: center;
@@ -78,7 +78,6 @@ main {
 
 /*Footer style*/
 footer {
-    border: 1px solid black;
     background-color: #e5e5e5;
     display: flex;
     align-items: center;
