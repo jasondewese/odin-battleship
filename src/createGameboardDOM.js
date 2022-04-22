@@ -18,16 +18,6 @@ const createGameboardDOM = (() => {
 
                 boardCell.addEventListener('click', function () {
                     Game.gameTurn(compPlayer, compBoard, playerBoard, i, j);
-                    /*
-                    console.log(compPlayer.attack(playerBoard, i, j));
-                    console.log(`Attack received at ${i},${j}`);
-                    if (playerBoard.isAllSunk()) {
-                        console.log("Computer player wins!");
-                    }
-                    else if (compBoard.isAllSunk()) {
-                        console.log("You win!");
-                    }
-                    */
                 });
 
                 boardWrapper.appendChild(boardCell);
@@ -54,17 +44,6 @@ const createGameboardDOM = (() => {
                 
                 boardCell.addEventListener('click', function () {
                     Game.gameTurn(player, playerBoard, compBoard, i, j);
-                    /*
-                    console.log(player.attack(compBoard, i, j));
-                    console.log(`Attack received at ${i},${j}`);
-                   
-                    if (playerBoard.isAllSunk()) {
-                        console.log("Computer player wins!");
-                    }
-                    else if (compBoard.isAllSunk()) {
-                        console.log("You win!");
-                    }
-                    */
                 });
                 boardWrapper.appendChild(boardCell);
             }
