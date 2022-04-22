@@ -1,5 +1,5 @@
 import './reset.css';
 import './style.css';
-import { createGameboardDOM } from './createGameboardDOM';
+import {Game} from './Game';
 
-createGameboardDOM.initBoards();
+Game.initGame();

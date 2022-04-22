@@ -122,7 +122,11 @@ const Gameboard = () => {
         return boardStr;
     }
 
-    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard};
+    const getBoard = () => {
+        return _board;
+    }
+
+    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard, getBoard};
 }
 
 export {Gameboard};
