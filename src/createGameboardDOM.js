@@ -1,3 +1,5 @@
+import { Game } from "./Game";
+
 const createGameboardDOM = (() => {
 
     const _createPlayerBoard = (compPlayer, playerBoard, compBoard) => {
@@ -11,9 +13,12 @@ const createGameboardDOM = (() => {
                 boardCell.classList.add('board-cell');
                 if (typeof playerBoard.getBoard()[i][j] === "object") {
                    boardCell.style.backgroundColor = '#60a5fa'; 
+                   boardCell.classList.add('ship-cell');
                 }
 
                 boardCell.addEventListener('click', function () {
+                    Game.gameTurn(compPlayer, compBoard, playerBoard, i, j);
+                    /*
                     console.log(compPlayer.attack(playerBoard, i, j));
                     console.log(`Attack received at ${i},${j}`);
                     if (playerBoard.isAllSunk()) {
@@ -22,6 +27,7 @@ const createGameboardDOM = (() => {
                     else if (compBoard.isAllSunk()) {
                         console.log("You win!");
                     }
+                    */
                 });
 
                 boardWrapper.appendChild(boardCell);
@@ -43,9 +49,12 @@ const createGameboardDOM = (() => {
                 boardCell.classList.add('board-cell');
                 if (typeof compBoard.getBoard()[i][j] === "object") {
                     boardCell.style.backgroundColor = '#60a5fa'; 
+                    boardCell.classList.add('ship-cell');
                  }
                 
                 boardCell.addEventListener('click', function () {
+                    Game.gameTurn(player, playerBoard, compBoard, i, j);
+                    /*
                     console.log(player.attack(compBoard, i, j));
                     console.log(`Attack received at ${i},${j}`);
                    
@@ -55,6 +64,7 @@ const createGameboardDOM = (() => {
                     else if (compBoard.isAllSunk()) {
                         console.log("You win!");
                     }
+                    */
                 });
                 boardWrapper.appendChild(boardCell);
             }

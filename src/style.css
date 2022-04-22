@@ -74,6 +74,10 @@ main {
     background-color: #2e4a9a;
 }
 
+.ship-cell:hover {
+    cursor: pointer;
+    background-color: #bfdbfe !important;
+}
 /*End Main game area style*/
 
 /*Footer style*/

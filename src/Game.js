@@ -17,10 +17,10 @@ const Game = (() => {
         playerBoard.placeShip(4, 0, 4, 4, 4);
 
         compBoard.placeShip(0, 0, 0, 1, 0);
-        compBoard.placeShip(1, 0, 1, 1, 1);
-        compBoard.placeShip(2, 0, 2, 2, 2);
-        compBoard.placeShip(3, 0, 3, 3, 3);
-        compBoard.placeShip(4, 0, 4, 4, 4);
+        compBoard.placeShip(1, 0, 2, 1, 2);
+        compBoard.placeShip(2, 8, 5, 8, 8);
+        compBoard.placeShip(3, 1, 7, 5, 7);
+        compBoard.placeShip(4, 6, 1, 6, 5);
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
     }
@@ -38,7 +38,18 @@ const Game = (() => {
         
     }
 
-    return {initGame, gameLoop};
+    const gameTurn = (currPlayer, playerBoard, enemyBoard, x, y) => {
+        console.log(currPlayer.attack(enemyBoard, x, y));
+        console.log(`Attack received at ${x},${y}`);
+
+        let playerMsg = currPlayer.isPlayerHuman() ? 'You win!' : 'Computer player wins!';
+        if (enemyBoard.isAllSunk()) {
+            console.log(playerMsg);
+        }
+        
+    }
+
+    return {initGame, gameLoop, gameTurn};
 
 })();
 
