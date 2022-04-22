@@ -1,6 +1,6 @@
 const createGameboardDOM = (() => {
 
-    const _createPlayerBoard = (playerBoard) => {
+    const _createPlayerBoard = (compPlayer, playerBoard, compBoard) => {
         const boardWrapper = document.querySelector('.player-board');
         //default desktop height/width in px
         
@@ -12,6 +12,18 @@ const createGameboardDOM = (() => {
                 if (typeof playerBoard.getBoard()[i][j] === "object") {
                    boardCell.style.backgroundColor = '#60a5fa'; 
                 }
+
+                boardCell.addEventListener('click', function () {
+                    console.log(compPlayer.attack(playerBoard, i, j));
+                    console.log(`Attack received at ${i},${j}`);
+                    if (playerBoard.isAllSunk()) {
+                        console.log("Computer player wins!");
+                    }
+                    else if (compBoard.isAllSunk()) {
+                        console.log("You win!");
+                    }
+                });
+
                 boardWrapper.appendChild(boardCell);
 
                 
@@ -20,7 +32,7 @@ const createGameboardDOM = (() => {
 
     }
 
-    const _createCompBoard = (compBoard) => {
+    const _createCompBoard = (player, playerBoard, compBoard) => {
         const boardWrapper = document.querySelector('.computer-board');
         //default desktop height/width in px
         
@@ -29,15 +41,29 @@ const createGameboardDOM = (() => {
             for (let j = 0; j < 10; j++) {
                 const boardCell = document.createElement('div');
                 boardCell.classList.add('board-cell');
-
+                if (typeof compBoard.getBoard()[i][j] === "object") {
+                    boardCell.style.backgroundColor = '#60a5fa'; 
+                 }
+                
+                boardCell.addEventListener('click', function () {
+                    console.log(player.attack(compBoard, i, j));
+                    console.log(`Attack received at ${i},${j}`);
+                   
+                    if (playerBoard.isAllSunk()) {
+                        console.log("Computer player wins!");
+                    }
+                    else if (compBoard.isAllSunk()) {
+                        console.log("You win!");
+                    }
+                });
                 boardWrapper.appendChild(boardCell);
             }
         }
     }
 
-    const initBoards = (playerBoard, compBoard) => {
-        _createPlayerBoard(playerBoard);
-        _createCompBoard(compBoard);
+    const initBoards = (player, compPlayer, playerBoard, compBoard) => {
+        _createPlayerBoard(compPlayer, playerBoard, compBoard);
+        _createCompBoard(player, playerBoard, compBoard);
     }
 
     return {initBoards};

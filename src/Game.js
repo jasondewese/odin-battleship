@@ -22,10 +22,23 @@ const Game = (() => {
         compBoard.placeShip(3, 0, 3, 3, 3);
         compBoard.placeShip(4, 0, 4, 4, 4);
 
-        createGameboardDOM.initBoards(playerBoard, compBoard);
+        createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
     }
 
-    return {initGame};
+    const gameLoop = () => {
+        while (!playerBoard.isAllSunk() && !compBoard.isAllSunk()) {
+            console.log("Game over.");
+            if (playerBoard.isAllSunk()) {
+                console.log("Computer player wins!");
+            }
+            else {
+                console.log("You win!");
+            }
+        }
+        
+    }
+
+    return {initGame, gameLoop};
 
 })();
 
