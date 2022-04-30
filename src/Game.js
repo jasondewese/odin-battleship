@@ -1,6 +1,7 @@
 import { createGameboardDOM } from "./createGameboardDOM";
 import { Gameboard } from "./Gameboard";
 import { Player } from "./Player";
+import { mathLogic } from "./mathLogic";
 
 const Game = (() => {
 
@@ -38,21 +39,52 @@ const Game = (() => {
                 console.log("You win!");
             }
         }
+    }
+
+    const _processCompAttack = () => {                
+        let randX = mathLogic.getRandomInt(0, 10);
+        let randY = mathLogic.getRandomInt(0, 10);
+        let shot = compPlayer.attack(playerBoard, randX, randY);
         
+        let attackedBoard = turn === 'PLAYER' ? 'comp' : 'player';
+
+        console.log(shot);
+        console.log(`Attack received at ${randX},${randY}`);
+
+        let attackedCell = document.getElementById(attackedBoard+randX+randY);
+        if (shot === 'HIT') {
+            attackedCell.classList.add('hit-cell');
+        }
+        if (shot === 'MISS') {
+            attackedCell.classList.add('miss-cell');
+        }
     }
 
     const _changeTurn = () => {
         turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
         console.log(turn + ' turn.');
+        if (turn === 'COMP') {
+            _processCompAttack();
+            _changeTurn();
+        }
+       
     }
 
     const gameTurn = (currPlayer, playerBoard, enemyBoard, x, y) => {
-        let shot = currPlayer.attack(enemyBoard, x, y)
+        let shot;
+        if (turn === 'PLAYER') {
+            shot = currPlayer.attack(enemyBoard, x, y);
+        }
+        else if (turn === 'COMP') {
+            let randX = mathLogic.getRandomInt(0, 10);
+            let randY = mathLogic.getRandomInt(0, 10);
+            shot = currPlayer.attack(enemyBoard, randX, randY);
+        }
+        
         let attackedBoard = turn === 'PLAYER' ? 'comp' : 'player';
 
         console.log(shot);
         console.log(`Attack received at ${x},${y}`);
-
 
         let attackedCell = document.getElementById(attackedBoard+x+y);
         if (shot === 'HIT') {
@@ -65,13 +97,9 @@ const Game = (() => {
         let playerMsg = currPlayer.isPlayerHuman() ? 'You win!' : 'Computer player wins!';
         if (enemyBoard.isAllSunk()) {
             console.log(playerMsg);
-        }
-        
+        }   
         _changeTurn();
-        
     }
-
-    
 
     return {initGame, gameLoop, gameTurn};
 

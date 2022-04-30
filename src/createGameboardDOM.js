@@ -6,7 +6,6 @@ const createGameboardDOM = (() => {
         const boardWrapper = document.querySelector('.player-board');
         //default desktop height/width in px
         
-
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
                 const boardCell = document.createElement('div');
@@ -15,24 +14,17 @@ const createGameboardDOM = (() => {
                 if (typeof playerBoard.getBoard()[i][j] === "object") {
                    boardCell.classList.add('ship-cell');
                 }
-
                 boardCell.addEventListener('click', function () {
                     Game.gameTurn(compPlayer, compBoard, playerBoard, i, j);
                 });
-
                 boardWrapper.appendChild(boardCell);
-
-                
             }
         }
-
     }
 
     const _createCompBoard = (player, playerBoard, compBoard) => {
         const boardWrapper = document.querySelector('.computer-board');
         //default desktop height/width in px
-        
-
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
                 const boardCell = document.createElement('div');

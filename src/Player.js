@@ -26,15 +26,12 @@ const Player = (isHuman) => {
         }
         else {
             return 'Attack failed. Cannot attack same square twice';
-        }
-         
-        
+        }   
     }
 
     const isPlayerHuman = () => {
         return _isHuman;
     }
-
 
     return {attack, isPlayerHuman};
 }

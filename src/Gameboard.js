@@ -26,8 +26,7 @@ const Gameboard = () => {
             }
             else {
                 _shipList.push(Ship(i));
-            }
-            
+            }     
         }
     })();
 
@@ -79,7 +78,6 @@ const Gameboard = () => {
                 allSunk = false;
             }
         }
-
         return allSunk;
     }
 
@@ -112,8 +110,7 @@ const Gameboard = () => {
     const printBoard = () => {
         let boardStr = ''; 
 
-        for (let i = 0; i < _BOARDSIZE; i++) {
-            
+        for (let i = 0; i < _BOARDSIZE; i++) { 
             for (let j = 0; j < _BOARDSIZE; j++) {
                 boardStr += _board[i][j] + ', ';
             }

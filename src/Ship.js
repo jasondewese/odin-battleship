@@ -11,13 +11,10 @@ const Ship = (shipLength) => {
         }
     })();
 
-
     const hit = (index) => {
         _hitStatus[index] = true;
         return _hitStatus;
     }
-
-    
 
     const isSunk = () => {
         _sunk = true;
@@ -26,11 +23,9 @@ const Ship = (shipLength) => {
                 _sunk = false;
             }
         }
-
         return _sunk;
     }
    
-
     return {isSunk, hit};
 }
 
