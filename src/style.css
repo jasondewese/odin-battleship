@@ -69,6 +69,10 @@ main {
     border: 2px solid #fafafa;
 }
 
+.ship-cell {
+    background-color: #60a5fa;
+}
+
 .board-cell:hover {
     cursor: pointer;
     background-color: #2e4a9a;
@@ -76,7 +80,15 @@ main {
 
 .ship-cell:hover {
     cursor: pointer;
-    background-color: #bfdbfe !important;
+    background-color: #bfdbfe;
+}
+
+.hit-cell {
+    background-color: #86efac;
+}
+
+.miss-cell {
+    background-color: #fca5a5;
 }
 /*End Main game area style*/
 

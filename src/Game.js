@@ -10,6 +10,7 @@ const Game = (() => {
     const compBoard = Gameboard();
 
     const initGame = () => {
+        
         playerBoard.placeShip(0, 0, 0, 1, 0);
         playerBoard.placeShip(1, 0, 1, 1, 1);
         playerBoard.placeShip(2, 0, 2, 2, 2);
@@ -39,8 +40,15 @@ const Game = (() => {
     }
 
     const gameTurn = (currPlayer, playerBoard, enemyBoard, x, y) => {
-        console.log(currPlayer.attack(enemyBoard, x, y));
+        let shot = currPlayer.attack(enemyBoard, x, y)
+        
+        console.log(shot);
         console.log(`Attack received at ${x},${y}`);
+
+        if (shot === 'HIT') {
+            let attackedCell = document.getElementById('comp'+x+y);
+            attackedCell.classList.add('hit-cell');
+        }
 
         let playerMsg = currPlayer.isPlayerHuman() ? 'You win!' : 'Computer player wins!';
         if (enemyBoard.isAllSunk()) {

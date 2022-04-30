@@ -11,8 +11,8 @@ const createGameboardDOM = (() => {
             for (let j = 0; j < 10; j++) {
                 const boardCell = document.createElement('div');
                 boardCell.classList.add('board-cell');
+                boardCell.id = 'player'+i+j;
                 if (typeof playerBoard.getBoard()[i][j] === "object") {
-                   boardCell.style.backgroundColor = '#60a5fa'; 
                    boardCell.classList.add('ship-cell');
                 }
 
@@ -37,8 +37,8 @@ const createGameboardDOM = (() => {
             for (let j = 0; j < 10; j++) {
                 const boardCell = document.createElement('div');
                 boardCell.classList.add('board-cell');
+                boardCell.id = 'comp'+i+j;
                 if (typeof compBoard.getBoard()[i][j] === "object") {
-                    boardCell.style.backgroundColor = '#60a5fa'; 
                     boardCell.classList.add('ship-cell');
                  }
                 
