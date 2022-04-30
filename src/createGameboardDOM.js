@@ -14,9 +14,14 @@ const createGameboardDOM = (() => {
                 if (typeof playerBoard.getBoard()[i][j] === "object") {
                    boardCell.classList.add('ship-cell');
                 }
+                /*
+                ************************
+                No longer need event listener since computer attacks are assigned with code
+                ************************
                 boardCell.addEventListener('click', function () {
                     Game.gameTurn(compPlayer, compBoard, playerBoard, i, j);
                 });
+                */
                 boardWrapper.appendChild(boardCell);
             }
         }
@@ -32,11 +37,11 @@ const createGameboardDOM = (() => {
                 boardCell.id = 'comp'+i+j;
                 if (typeof compBoard.getBoard()[i][j] === "object") {
                     boardCell.classList.add('ship-cell');
-                 }
-                
+                 }                
                 boardCell.addEventListener('click', function () {
                     Game.gameTurn(player, playerBoard, compBoard, i, j);
                 });
+                
                 boardWrapper.appendChild(boardCell);
             }
         }
