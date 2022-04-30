@@ -8,6 +8,7 @@ const Game = (() => {
     const compPlayer = Player(false);
     const playerBoard = Gameboard();
     const compBoard = Gameboard();
+    let turn = 'PLAYER';
 
     const initGame = () => {
         
@@ -24,6 +25,7 @@ const Game = (() => {
         compBoard.placeShip(4, 6, 1, 6, 5);
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
+        console.log(turn + ' turn.');
     }
 
     const gameLoop = () => {
@@ -39,15 +41,25 @@ const Game = (() => {
         
     }
 
+    const _changeTurn = () => {
+        turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
+        console.log(turn + ' turn.');
+    }
+
     const gameTurn = (currPlayer, playerBoard, enemyBoard, x, y) => {
         let shot = currPlayer.attack(enemyBoard, x, y)
-        
+        let attackedBoard = turn === 'PLAYER' ? 'comp' : 'player';
+
         console.log(shot);
         console.log(`Attack received at ${x},${y}`);
 
+
+        let attackedCell = document.getElementById(attackedBoard+x+y);
         if (shot === 'HIT') {
-            let attackedCell = document.getElementById('comp'+x+y);
             attackedCell.classList.add('hit-cell');
+        }
+        if (shot === 'MISS') {
+            attackedCell.classList.add('miss-cell');
         }
 
         let playerMsg = currPlayer.isPlayerHuman() ? 'You win!' : 'Computer player wins!';
@@ -55,7 +67,11 @@ const Game = (() => {
             console.log(playerMsg);
         }
         
+        _changeTurn();
+        
     }
+
+    
 
     return {initGame, gameLoop, gameTurn};
 
