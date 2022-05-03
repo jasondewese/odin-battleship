@@ -1,13 +1,45 @@
 import { Ship } from "./Ship";
+import { Game } from "./Game";
 
 const Gameboard = () => {
     const _BOARDSIZE = 10;
     const _MISS = 0;
     const _HIT = 1;
+    const _DEFAULT_SHIP_ORIENTATION = 'VERTICAL';
+    let _shipOrientation = _DEFAULT_SHIP_ORIENTATION;
     let _board = [];
     let _shipList = [];
     let _shotsFired = [];
     let _shipsPlaced = 0;
+    
+    const changeShipOrientation = () => {
+        _shipOrientation =  _shipOrientation === 'VERTICAL' ? 'HORIZONTAL' : 'VERTICAL';
+    }
+
+    const getShipOrientation = () => {
+        return _shipOrientation;
+    }
+    
+    const isValidPlacement = (i, j) => {
+        let shipsPlaced = Game.getShipsPlaced();
+        if (shipsPlaced < 5) {
+            if (_shipOrientation === 'VERTICAL' && shipsPlaced === 0 && i > 8) {
+               return false;
+            }
+            else if (_shipOrientation === 'VERTICAL' && i > (9-shipsPlaced)) {
+                return false;
+            }
+            else if (_shipOrientation === 'HORIZONTAL' && j > (9-shipsPlaced)) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
     
     const _initBoard = (() => {
         for (let i = 0; i < _BOARDSIZE; i++) {
@@ -129,7 +161,7 @@ const Gameboard = () => {
         return _shipsPlaced;
     }
 
-    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard, getBoard, getShipsPlaced};
+    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard, getBoard, getShipsPlaced, changeShipOrientation, getShipOrientation, isValidPlacement};
 }
 
 export {Gameboard};

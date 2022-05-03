@@ -1,13 +1,7 @@
 import { Game } from "./Game";
+import { Gameboard } from "./Gameboard";
 
 const createGameboardDOM = (() => {
-
-    const _DEFAULT_SHIP_ORIENTATION = 'VERTICAL';
-    let _shipOrientation = _DEFAULT_SHIP_ORIENTATION;
-
-    const _changeShipOrientation = () => {
-        _shipOrientation =  _shipOrientation === 'VERTICAL' ? 'HORIZONTAL' : 'VERTICAL';
-    }
 
     const _addVerticalShip = (boardCell, playerBoard, i, j) => {
         let shipsPlaced = Game.getShipsPlaced();
@@ -64,32 +58,20 @@ const createGameboardDOM = (() => {
                 }
 
                 boardCell.addEventListener('mouseover', function() {
-                    let shipsPlaced = Game.getShipsPlaced();
-                    //console.log(`${_shipOrientation}, (i:${i}, j:${j})`);
-                    if (shipsPlaced < 5) {
-                        if (_shipOrientation === 'VERTICAL' && shipsPlaced === 0 && i > 8) {
-                            boardCell.classList.add('invalid-cell');
-                        }
-                        else if (_shipOrientation === 'VERTICAL' && i > (9-shipsPlaced)) {
-                            boardCell.classList.add('invalid-cell');
-                        }
-                        else if (_shipOrientation === 'HORIZONTAL' && j > (9-shipsPlaced)) {
-                            boardCell.classList.add('invalid-cell');
-                        }
-                        else {
-                            boardCell.classList.remove('invalid-cell');
-                        }
+                    if (playerBoard.isValidPlacement(i,j)) {
+                        boardCell.classList.remove('invalid-cell');
                     }
                     else {
-                        boardCell.classList.remove('invalid-cell');
+                        boardCell.classList.add('invalid-cell');
                     }
                 });
 
                 boardCell.addEventListener('click', function() {
-                    if (_shipOrientation === 'VERTICAL') {
+                    let shipOrientation = playerBoard.getShipOrientation();
+                    if (shipOrientation === 'VERTICAL') {
                         _addVerticalShip(boardCell, playerBoard, i, j);
                     }
-                    else if (_shipOrientation === 'HORIZONTAL') {
+                    else if (shipOrientation === 'HORIZONTAL') {
                         _addHorizontalShip(boardCell, playerBoard, i, j);
                     }
                     if (Game.getShipsPlaced() >= 5) {
@@ -139,7 +121,7 @@ const createGameboardDOM = (() => {
         _createPlayerBoard(compPlayer, playerBoard, compBoard);
         _createCompBoard(player, playerBoard, compBoard);
         document.getElementById('axis-button').addEventListener('click', function() {
-            _changeShipOrientation();
+            playerBoard.changeShipOrientation();
         });
     }
 

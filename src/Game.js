@@ -25,31 +25,20 @@ const Game = (() => {
         return _gameOver;
     }
 
-    const initGame = () => {
+    const _placeCompShips = () => {
         compBoard.placeShip(0, 0, 0, 1, 0);
         compBoard.placeShip(1, 0, 2, 1, 2);
         compBoard.placeShip(2, 8, 5, 8, 8);
         compBoard.placeShip(3, 1, 7, 5, 7);
         compBoard.placeShip(4, 6, 1, 6, 5);
+    }
+
+    const initGame = () => {
+        _placeCompShips();
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
         console.log(turn + ' turn.');
     }
-
-    /*
-    const gameLoop = () => {
-        while (!playerBoard.isAllSunk() && !compBoard.isAllSunk()) {
-            console.log("Game over.");
-            if (playerBoard.isAllSunk()) {
-                console.log("Computer player wins!");
-            }
-            else {
-                console.log("You win!");
-            }
-            _gameOver = true;
-        }
-    }
-    */
 
     const _processCompAttack = () => {                
         let randX = mathLogic.getRandomInt(0, 10);
