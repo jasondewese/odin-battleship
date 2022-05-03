@@ -28,6 +28,17 @@ const Gameboard = () => {
             else if (_shipOrientation === 'VERTICAL' && i > (9-_shipsPlaced)) {
                 return false;
             }
+            /*
+            else if (_shipOrientation === 'VERTICAL') {
+                console.log(_board[i][j]);
+                for (let n = 0; n < _shipsPlaced+1; n++) {
+                    if ((typeof _board[i+n][j]) === 'object') {
+                        console.log('is this happening?');
+                        return false;
+                    }
+                }
+            }
+            */
             else if (_shipOrientation === 'HORIZONTAL' && j > (9-_shipsPlaced)) {
                 return false;
             }
