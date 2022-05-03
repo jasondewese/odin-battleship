@@ -29,6 +29,26 @@ const createGameboardDOM = (() => {
         }
     }
 
+    const _addHorizontalShip = (boardCell, playerBoard, i, j) => {
+        let shipsPlaced = Game.getShipsPlaced();
+        if (shipsPlaced < 5) {
+            if (shipsPlaced === 0) {
+                playerBoard.placeShip(shipsPlaced, i, j, i, j+1);
+                for (let n = 0; n < shipsPlaced+2; n++) {
+                    document.getElementById('player'+i+(j+n)).classList.add('ship-cell');
+                }
+            }
+            else {
+                playerBoard.placeShip(shipsPlaced, i, j, i, j+shipsPlaced);
+                boardCell.classList.add('ship-cell');
+                for (let n = 0; n < shipsPlaced+1; n++) {
+                    document.getElementById('player'+i+(j+n)).classList.add('ship-cell');
+                }
+            }
+            Game.addPlayerShip();
+        }
+    }
+
     const _createPlayerBoard = (compPlayer, playerBoard, compBoard) => {
         const boardWrapper = document.querySelector('.player-board');
         //default desktop height/width in px
@@ -46,6 +66,9 @@ const createGameboardDOM = (() => {
                 boardCell.addEventListener('click', function() {
                     if (_shipOrientation === 'VERTICAL') {
                         _addVerticalShip(boardCell, playerBoard, i, j);
+                    }
+                    else if (_shipOrientation === 'HORIZONTAL') {
+                        _addHorizontalShip(boardCell, playerBoard, i, j);
                     }
                     if (Game.getShipsPlaced() >= 5) {
                        document.querySelector('.computer-board').style.removeProperty('display');
