@@ -9,16 +9,14 @@ html {
 body {
     height: 100vh;
     width: 100vw;
-
     display: grid;
-    grid-template-rows: 6rem 1fr 3rem;
+    grid-template-rows: 4rem 1fr 3rem;
     background-color: #1e3a8a;
     color: #e5e5e5;
 }
 
 /*Header style*/
 header {
-    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,9 +29,8 @@ h1 {
 
 /*Main game area style*/
 main {
-    
     display: grid;
-    grid-template-rows: 5rem 3rem 1fr;
+    grid-template-rows: 4rem 2em 1fr;
     align-items: center;
     justify-items: center;
 }
@@ -51,10 +48,8 @@ main {
 }
 
 .board-wrapper {
-    
     width: 500px;
     height: 500px;
-
     display: grid;
     gap: 2px;
     grid-template-rows: repeat(10, 1fr);
