@@ -19,17 +19,16 @@ const Gameboard = () => {
     const getShipOrientation = () => {
         return _shipOrientation;
     }
-    
+
     const isValidPlacement = (i, j) => {
-        let shipsPlaced = Game.getShipsPlaced();
-        if (shipsPlaced < 5) {
-            if (_shipOrientation === 'VERTICAL' && shipsPlaced === 0 && i > 8) {
+        if (_shipsPlaced < 5) {
+            if (_shipOrientation === 'VERTICAL' && _shipsPlaced === 0 && i > 8) {
                return false;
             }
-            else if (_shipOrientation === 'VERTICAL' && i > (9-shipsPlaced)) {
+            else if (_shipOrientation === 'VERTICAL' && i > (9-_shipsPlaced)) {
                 return false;
             }
-            else if (_shipOrientation === 'HORIZONTAL' && j > (9-shipsPlaced)) {
+            else if (_shipOrientation === 'HORIZONTAL' && j > (9-_shipsPlaced)) {
                 return false;
             }
             else {
@@ -41,7 +40,9 @@ const Gameboard = () => {
         }
     }
     
-    const _initBoard = (() => {
+    const _initBoard = () => {
+        _board = [];
+        _shotsFired = [];
         for (let i = 0; i < _BOARDSIZE; i++) {
             _board.push([]);
             _shotsFired.push([]);
@@ -50,9 +51,10 @@ const Gameboard = () => {
                 _shotsFired[i].push(-1);
             }
         }
-    })();
+    };
 
-    const _initShips = (() => {
+    const _initShips = () => {
+        _shipList = [];
         for (let i = 1; i <= 5; i++) {
             if (i === 1) {
                 _shipList.push(Ship(i+1));
@@ -61,7 +63,20 @@ const Gameboard = () => {
                 _shipList.push(Ship(i));
             }     
         }
+    };
+
+    //Immediately invoke upon board creation to initialize state
+    const _initialBoardState = (() => {
+        _initBoard();
+        _initShips();
     })();
+
+    const resetBoard = () => {
+        _initBoard();
+        _initShips();
+        _shipsPlaced = 0;
+        _shipOrientation = 'VERTICAL';
+    }
 
     const placeShip = (ship, x1,y1,x2,y2) => {
 
@@ -161,7 +176,7 @@ const Gameboard = () => {
         return _shipsPlaced;
     }
 
-    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard, getBoard, getShipsPlaced, changeShipOrientation, getShipOrientation, isValidPlacement};
+    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard, getBoard, getShipsPlaced, changeShipOrientation, getShipOrientation, isValidPlacement, resetBoard};
 }
 
 export {Gameboard};

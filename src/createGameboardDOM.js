@@ -4,7 +4,7 @@ import { Gameboard } from "./Gameboard";
 const createGameboardDOM = (() => {
 
     const _addVerticalShip = (boardCell, playerBoard, i, j) => {
-        let shipsPlaced = Game.getShipsPlaced();
+        let shipsPlaced = playerBoard.getShipsPlaced();
         if (shipsPlaced < 5) {
             if (shipsPlaced === 0) {
                 playerBoard.placeShip(shipsPlaced, i, j, i+1, j);
@@ -19,12 +19,11 @@ const createGameboardDOM = (() => {
                     document.getElementById('player'+(i+n)+j).classList.add('ship-cell');
                 }
             }
-            Game.addPlayerShip();
         }
     }
 
     const _addHorizontalShip = (boardCell, playerBoard, i, j) => {
-        let shipsPlaced = Game.getShipsPlaced();
+        let shipsPlaced = playerBoard.getShipsPlaced();
         if (shipsPlaced < 5) {
             if (shipsPlaced === 0) {
                 playerBoard.placeShip(shipsPlaced, i, j, i, j+1);
@@ -39,7 +38,6 @@ const createGameboardDOM = (() => {
                     document.getElementById('player'+i+(j+n)).classList.add('ship-cell');
                 }
             }
-            Game.addPlayerShip();
         }
     }
 
@@ -74,8 +72,11 @@ const createGameboardDOM = (() => {
                     else if (shipOrientation === 'HORIZONTAL') {
                         _addHorizontalShip(boardCell, playerBoard, i, j);
                     }
-                    if (Game.getShipsPlaced() >= 5) {
+                    if (playerBoard.getShipsPlaced() >= 5) {
                        document.querySelector('.computer-board').style.removeProperty('display');
+                       //switch button options
+                       document.getElementById('axis-button').style.display = 'none';
+                       document.getElementById('restart-button').style.display = 'inline';
                     }
                 });
                 /*
@@ -108,7 +109,6 @@ const createGameboardDOM = (() => {
                     if (!Game.getGameOver()) {
                         Game.gameTurn(player, playerBoard, compBoard, i, j);
                     }
-                   
                 });
                 
                 boardWrapper.appendChild(boardCell);
@@ -120,9 +120,17 @@ const createGameboardDOM = (() => {
     const initBoards = (player, compPlayer, playerBoard, compBoard) => {
         _createPlayerBoard(compPlayer, playerBoard, compBoard);
         _createCompBoard(player, playerBoard, compBoard);
+        document.getElementById('restart-button').addEventListener('click', function() {
+            Game.restartGame();
+            //switch buttons
+            document.getElementById('axis-button').style.display = 'inline';
+            document.getElementById('restart-button').style.display = 'none';
+        });
         document.getElementById('axis-button').addEventListener('click', function() {
             playerBoard.changeShipOrientation();
         });
+
+        
     }
 
     return {initBoards};

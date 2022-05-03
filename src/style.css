@@ -42,9 +42,13 @@ main {
     gap: 100px;
 }
 
-#axis-button {
+#axis-button, #restart-button {
     height: 2rem;
     width: 8rem;
+}
+
+#restart-button {
+    display: none;
 }
 
 .board-wrapper {

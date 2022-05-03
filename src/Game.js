@@ -10,16 +10,7 @@ const Game = (() => {
     const playerBoard = Gameboard();
     const compBoard = Gameboard();
     let turn = 'PLAYER';
-    let _shipsPlaced = 0;
     let _gameOver = false;
-
-    const addPlayerShip = () => {
-        _shipsPlaced++;
-    }
-
-    const getShipsPlaced = () => {
-        return _shipsPlaced;
-    }
 
     const getGameOver = () => {
         return _gameOver;
@@ -37,7 +28,26 @@ const Game = (() => {
         _placeCompShips();
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
-        console.log(turn + ' turn.');
+        console.log('Click to place your ships');
+    }
+
+    const restartGame = () => {
+        let playerBoardDOM = document.querySelector('.player-board');
+        let compBoardDOM = document.querySelector('.computer-board');
+        while (playerBoardDOM.firstChild) {
+            playerBoardDOM.removeChild(playerBoardDOM.firstChild);
+        }
+        while (compBoardDOM.firstChild) {
+            compBoardDOM.removeChild(compBoardDOM.firstChild);
+        }
+        playerBoard.resetBoard();
+        compBoard.resetBoard();
+
+        initGame();
+
+        document.getElementById('axis-button').addEventListener('click', function() {
+            playerBoard.changeShipOrientation();
+        });
     }
 
     const _processCompAttack = () => {                
@@ -102,7 +112,7 @@ const Game = (() => {
         _changeTurn();
     }
 
-    return {initGame, gameTurn, addPlayerShip, getShipsPlaced, getGameOver};
+    return {initGame, gameTurn, getGameOver, restartGame};
 
 })();
 
