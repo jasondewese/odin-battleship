@@ -63,6 +63,28 @@ const createGameboardDOM = (() => {
                     boardCell.classList.add('ship-cell');
                 }
 
+                boardCell.addEventListener('mouseover', function() {
+                    let shipsPlaced = Game.getShipsPlaced();
+                    //console.log(`${_shipOrientation}, (i:${i}, j:${j})`);
+                    if (shipsPlaced < 5) {
+                        if (_shipOrientation === 'VERTICAL' && shipsPlaced === 0 && i > 8) {
+                            boardCell.classList.add('invalid-cell');
+                        }
+                        else if (_shipOrientation === 'VERTICAL' && i > (9-shipsPlaced)) {
+                            boardCell.classList.add('invalid-cell');
+                        }
+                        else if (_shipOrientation === 'HORIZONTAL' && j > (9-shipsPlaced)) {
+                            boardCell.classList.add('invalid-cell');
+                        }
+                        else {
+                            boardCell.classList.remove('invalid-cell');
+                        }
+                    }
+                    else {
+                        boardCell.classList.remove('invalid-cell');
+                    }
+                });
+
                 boardCell.addEventListener('click', function() {
                     if (_shipOrientation === 'VERTICAL') {
                         _addVerticalShip(boardCell, playerBoard, i, j);

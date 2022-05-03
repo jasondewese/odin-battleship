@@ -84,6 +84,9 @@ main {
     background-color: #fca5a5;
 }
 
+.invalid-cell:hover {
+    cursor: not-allowed;
+}
 /*End Main game area style*/
 
 /*Footer style*/
