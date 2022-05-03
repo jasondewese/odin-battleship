@@ -14,9 +14,23 @@ const createGameboardDOM = (() => {
                 if (typeof playerBoard.getBoard()[i][j] === "object") {
                    boardCell.classList.add('ship-cell');
                 }
+
+                /*
+                First attempt at manual ship placing
+
+                boardCell.addEventListener('click', function () {
+                    if (playerBoard.getShipsPlaced() < 5) {
+                        playerBoard.placeShip(playerBoard.getShipsPlaced(), i, j, i, j+playerBoard.getShipsPlaced());
+                    }
+                })
+                */
+
+
                 /*
                 ************************
                 No longer need event listener since computer attacks are assigned with code
+                
+                Could be used for a two player game option later
                 ************************
                 boardCell.addEventListener('click', function () {
                     Game.gameTurn(compPlayer, compBoard, playerBoard, i, j);
@@ -45,6 +59,7 @@ const createGameboardDOM = (() => {
                 boardWrapper.appendChild(boardCell);
             }
         }
+        boardWrapper.style.display = 'none';
     }
 
     const initBoards = (player, compPlayer, playerBoard, compBoard) => {

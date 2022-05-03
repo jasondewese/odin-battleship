@@ -7,6 +7,7 @@ const Gameboard = () => {
     let _board = [];
     let _shipList = [];
     let _shotsFired = [];
+    let _shipsPlaced = 0;
     
     const _initBoard = (() => {
         for (let i = 0; i < _BOARDSIZE; i++) {
@@ -53,6 +54,7 @@ const Gameboard = () => {
                 currIndex++;
             }
         }
+        _shipsPlaced++;
         
         return [_board[x1][y1].ship, _board[x2][y2].ship];
     }
@@ -123,7 +125,11 @@ const Gameboard = () => {
         return _board;
     }
 
-    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard, getBoard};
+    const getShipsPlaced = () => {
+        return _shipsPlaced;
+    }
+
+    return {placeShip, receiveAttack, isAllSunk, getShotStatus, printBoard, getBoard, getShipsPlaced};
 }
 
 export {Gameboard};

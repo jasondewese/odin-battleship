@@ -18,6 +18,8 @@ const Game = (() => {
         playerBoard.placeShip(2, 0, 2, 2, 2);
         playerBoard.placeShip(3, 0, 3, 3, 3);
         playerBoard.placeShip(4, 0, 4, 4, 4);
+        
+
 
         compBoard.placeShip(0, 0, 0, 1, 0);
         compBoard.placeShip(1, 0, 2, 1, 2);
@@ -27,6 +29,7 @@ const Game = (() => {
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
         console.log(turn + ' turn.');
+       
     }
 
     const gameLoop = () => {

@@ -50,8 +50,6 @@ main {
     width: 8rem;
 }
 
-
-
 .board-wrapper {
     
     width: 500px;
@@ -90,6 +88,7 @@ main {
 .miss-cell {
     background-color: #fca5a5;
 }
+
 /*End Main game area style*/
 
 /*Footer style*/
