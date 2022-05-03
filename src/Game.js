@@ -10,16 +10,25 @@ const Game = (() => {
     const playerBoard = Gameboard();
     const compBoard = Gameboard();
     let turn = 'PLAYER';
+    let _shipsPlaced = 0;
+
+    const addPlayerShip = () => {
+        _shipsPlaced++;
+    }
+
+    const getShipsPlaced = () => {
+        return _shipsPlaced;
+    }
 
     const initGame = () => {
         
+        /*
         playerBoard.placeShip(0, 0, 0, 1, 0);
         playerBoard.placeShip(1, 0, 1, 1, 1);
         playerBoard.placeShip(2, 0, 2, 2, 2);
         playerBoard.placeShip(3, 0, 3, 3, 3);
         playerBoard.placeShip(4, 0, 4, 4, 4);
-        
-
+        */
 
         compBoard.placeShip(0, 0, 0, 1, 0);
         compBoard.placeShip(1, 0, 2, 1, 2);
@@ -29,7 +38,6 @@ const Game = (() => {
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
         console.log(turn + ' turn.');
-       
     }
 
     const gameLoop = () => {
@@ -70,7 +78,6 @@ const Game = (() => {
             _processCompAttack();
             _changeTurn();
         }
-       
     }
 
     const gameTurn = (currPlayer, playerBoard, enemyBoard, x, y) => {
@@ -104,7 +111,7 @@ const Game = (() => {
         _changeTurn();
     }
 
-    return {initGame, gameLoop, gameTurn};
+    return {initGame, gameLoop, gameTurn, addPlayerShip, getShipsPlaced};
 
 })();
 

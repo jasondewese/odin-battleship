@@ -2,6 +2,33 @@ import { Game } from "./Game";
 
 const createGameboardDOM = (() => {
 
+    const _DEFAULT_SHIP_ORIENTATION = 'VERTICAL';
+    let _shipOrientation = _DEFAULT_SHIP_ORIENTATION;
+
+    const _changeShipOrientation = () => {
+        _shipOrientation =  _shipOrientation === 'VERTICAL' ? 'HORIZONTAL' : 'VERTICAL';
+    }
+
+    const _addVerticalShip = (boardCell, playerBoard, i, j) => {
+        let shipsPlaced = Game.getShipsPlaced();
+        if (shipsPlaced < 5) {
+            if (shipsPlaced === 0) {
+                playerBoard.placeShip(shipsPlaced, i, j, i+1, j);
+                for (let n = 0; n < shipsPlaced+2; n++) {
+                    document.getElementById('player'+(i+n)+j).classList.add('ship-cell');
+                }
+            }
+            else {
+                playerBoard.placeShip(shipsPlaced, i, j, i+shipsPlaced, j);
+                boardCell.classList.add('ship-cell');
+                for (let n = 0; n < shipsPlaced+1; n++) {
+                    document.getElementById('player'+(i+n)+j).classList.add('ship-cell');
+                }
+            }
+            Game.addPlayerShip();
+        }
+    }
+
     const _createPlayerBoard = (compPlayer, playerBoard, compBoard) => {
         const boardWrapper = document.querySelector('.player-board');
         //default desktop height/width in px
@@ -11,21 +38,19 @@ const createGameboardDOM = (() => {
                 const boardCell = document.createElement('div');
                 boardCell.classList.add('board-cell');
                 boardCell.id = 'player'+i+j;
+                
                 if (typeof playerBoard.getBoard()[i][j] === "object") {
-                   boardCell.classList.add('ship-cell');
+                    boardCell.classList.add('ship-cell');
                 }
 
-                /*
-                First attempt at manual ship placing
-
-                boardCell.addEventListener('click', function () {
-                    if (playerBoard.getShipsPlaced() < 5) {
-                        playerBoard.placeShip(playerBoard.getShipsPlaced(), i, j, i, j+playerBoard.getShipsPlaced());
+                boardCell.addEventListener('click', function() {
+                    if (_shipOrientation === 'VERTICAL') {
+                        _addVerticalShip(boardCell, playerBoard, i, j);
                     }
-                })
-                */
-
-
+                    if (Game.getShipsPlaced() >= 5) {
+                       document.querySelector('.computer-board').style.removeProperty('display');
+                    }
+                });
                 /*
                 ************************
                 No longer need event listener since computer attacks are assigned with code
@@ -65,6 +90,9 @@ const createGameboardDOM = (() => {
     const initBoards = (player, compPlayer, playerBoard, compBoard) => {
         _createPlayerBoard(compPlayer, playerBoard, compBoard);
         _createCompBoard(player, playerBoard, compBoard);
+        document.getElementById('axis-button').addEventListener('click', function() {
+            _changeShipOrientation();
+        });
     }
 
     return {initBoards};
