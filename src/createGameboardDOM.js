@@ -101,7 +101,10 @@ const createGameboardDOM = (() => {
                     boardCell.classList.add('ship-cell');
                  }                
                 boardCell.addEventListener('click', function () {
-                    Game.gameTurn(player, playerBoard, compBoard, i, j);
+                    if (!Game.getGameOver()) {
+                        Game.gameTurn(player, playerBoard, compBoard, i, j);
+                    }
+                   
                 });
                 
                 boardWrapper.appendChild(boardCell);

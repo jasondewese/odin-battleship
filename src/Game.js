@@ -11,6 +11,7 @@ const Game = (() => {
     const compBoard = Gameboard();
     let turn = 'PLAYER';
     let _shipsPlaced = 0;
+    let _gameOver = false;
 
     const addPlayerShip = () => {
         _shipsPlaced++;
@@ -20,16 +21,11 @@ const Game = (() => {
         return _shipsPlaced;
     }
 
-    const initGame = () => {
-        
-        /*
-        playerBoard.placeShip(0, 0, 0, 1, 0);
-        playerBoard.placeShip(1, 0, 1, 1, 1);
-        playerBoard.placeShip(2, 0, 2, 2, 2);
-        playerBoard.placeShip(3, 0, 3, 3, 3);
-        playerBoard.placeShip(4, 0, 4, 4, 4);
-        */
+    const getGameOver = () => {
+        return _gameOver;
+    }
 
+    const initGame = () => {
         compBoard.placeShip(0, 0, 0, 1, 0);
         compBoard.placeShip(1, 0, 2, 1, 2);
         compBoard.placeShip(2, 8, 5, 8, 8);
@@ -40,6 +36,7 @@ const Game = (() => {
         console.log(turn + ' turn.');
     }
 
+    /*
     const gameLoop = () => {
         while (!playerBoard.isAllSunk() && !compBoard.isAllSunk()) {
             console.log("Game over.");
@@ -49,8 +46,10 @@ const Game = (() => {
             else {
                 console.log("You win!");
             }
+            _gameOver = true;
         }
     }
+    */
 
     const _processCompAttack = () => {                
         let randX = mathLogic.getRandomInt(0, 10);
@@ -72,11 +71,13 @@ const Game = (() => {
     }
 
     const _changeTurn = () => {
-        turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
-        console.log(turn + ' turn.');
-        if (turn === 'COMP') {
-            _processCompAttack();
-            _changeTurn();
+        if (!_gameOver) {
+            turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
+            console.log(turn + ' turn.');
+            if (turn === 'COMP') {
+                _processCompAttack();
+                _changeTurn();
+            }
         }
     }
 
@@ -107,11 +108,12 @@ const Game = (() => {
         let playerMsg = currPlayer.isPlayerHuman() ? 'You win!' : 'Computer player wins!';
         if (enemyBoard.isAllSunk()) {
             console.log(playerMsg);
+            _gameOver = true;
         }   
         _changeTurn();
     }
 
-    return {initGame, gameLoop, gameTurn, addPlayerShip, getShipsPlaced};
+    return {initGame, gameTurn, addPlayerShip, getShipsPlaced, getGameOver};
 
 })();
 
