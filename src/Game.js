@@ -19,6 +19,43 @@ const Game = (() => {
     const _placeCompShips = () => {
         //EDIT NEEDED
         //Add ability for computer to randomly place ships
+        
+        /*
+        for (let i = 0; i < 5; i++) {
+            let x1 = mathLogic.getRandomInt(0, 9);
+            let y1 = mathLogic.getRandomInt(0, 9);
+            while (!compBoard.isValidPlacement(x1,y1)) {
+                x1 = mathLogic.getRandomInt(0, 9);
+                y1 = mathLogic.getRandomInt(0, 9);
+                compBoard.changeShipOrientation();
+            }
+           
+            if (compBoard.getShipOrientation() === 'VERTICAL') {
+
+                if (i === 0) {
+                    compBoard.placeShip(i, x1, y1, x1+i+1, y1);
+                    console.log('ship placed');
+                }
+                else {
+                    compBoard.placeShip(i, x1, y1, x1+i, y1);
+                    console.log('ship placed');
+                }
+            }
+            else if (compBoard.getShipOrientation() === 'HORIZONTAL') {
+                if (i === 0) {
+                    compBoard.placeShip(i, x1, y1, x1, y1+i+1);
+                    console.log('ship placed');
+                }
+                else {
+                    compBoard.placeShip(i, x1, y1, x1, y1+i);
+                    console.log('ship placed');
+                }
+            }
+           
+        }
+        */
+
+        
         let previousShipsY = [];
         
         for (let i = 0; i < 5; i++) {
@@ -46,16 +83,8 @@ const Game = (() => {
                 compBoard.placeShip(i, x1, y1, x2, y2);
                 previousShipsY.push(y1);
             }
-            //compBoard.placeShip(i, x1, y1, x2, y2);
         }
         
-        /*
-        compBoard.placeShip(0, 0, 0, 1, 0);
-        compBoard.placeShip(1, 0, 2, 1, 2);
-        compBoard.placeShip(2, 8, 5, 8, 8);
-        compBoard.placeShip(3, 1, 7, 5, 7);
-        compBoard.placeShip(4, 6, 1, 6, 5);
-        */
     }
 
     const initGame = () => {
