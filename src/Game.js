@@ -19,25 +19,43 @@ const Game = (() => {
     const _placeCompShips = () => {
         //EDIT NEEDED
         //Add ability for computer to randomly place ships
+        let previousShipsY = [];
         
-        /*
         for (let i = 0; i < 5; i++) {
             if (i === 0) {
-                let x1 = mathLogic.getRandomInt(0, 9-(i+1));
+                let x1 = mathLogic.getRandomInt(0, 10-(i+1));
+                let y1 = mathLogic.getRandomInt(0, 10);
+                //continue getting new randomInt until it hasn't been selected before
+                while (previousShipsY.includes(y1) || previousShipsY.includes(y1+1) || previousShipsY.includes(y1-1)) {
+                    y1 = mathLogic.getRandomInt(0, 10);
+                }
+                let y2 = y1;
+                let x2 = x1 + 1;
+                compBoard.placeShip(i, x1, y1, x2, y2);
+                previousShipsY.push(y1);
             }
             else {
-                let x1 = mathLogic.getRandomInt(0, 9-i);
+                let x1 = mathLogic.getRandomInt(0, 10-i);
+                let y1 = mathLogic.getRandomInt(0, 10);
+                //continue getting new randomInt until it hasn't been selected before
+                while (previousShipsY.includes(y1) || previousShipsY.includes(y1+1) || previousShipsY.includes(y1-1)) {
+                    y1 = mathLogic.getRandomInt(0, 10);
+                }
+                let y2 = y1;
+                let x2 = x1 + i;
+                compBoard.placeShip(i, x1, y1, x2, y2);
+                previousShipsY.push(y1);
             }
-            
-
             //compBoard.placeShip(i, x1, y1, x2, y2);
         }
-        */
+        
+        /*
         compBoard.placeShip(0, 0, 0, 1, 0);
         compBoard.placeShip(1, 0, 2, 1, 2);
         compBoard.placeShip(2, 8, 5, 8, 8);
         compBoard.placeShip(3, 1, 7, 5, 7);
         compBoard.placeShip(4, 6, 1, 6, 5);
+        */
     }
 
     const initGame = () => {
