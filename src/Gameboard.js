@@ -28,7 +28,6 @@ const Gameboard = () => {
             else if (_shipOrientation === 'VERTICAL' && i > (9-_shipsPlaced)) {
                 return false;
             }
-            
             else if (_shipOrientation === 'VERTICAL' && _shipsPlaced > 0) {
                 let shipCheck = false;
                 for (let n = 0; n < (_shipsPlaced+1); n++) {
@@ -42,14 +41,27 @@ const Gameboard = () => {
                 else {
                     return true;
                 }
-            }
-            
+            }            
             else if (_shipOrientation === 'HORIZONTAL' && _shipsPlaced === 0 && j > 8) {
                 return false;
             }
             else if (_shipOrientation === 'HORIZONTAL' && j > (9-_shipsPlaced)) {
                 return false;
             }
+            else if (_shipOrientation === 'HORIZONTAL' && _shipsPlaced > 0) {
+                let shipCheck = false;
+                for (let n = 0; n < (_shipsPlaced+1); n++) {
+                    if (_board[i][j+n] !== -1 || _board[i][j+n+1] !== -1 || _board[i][j+n-1] !== -1) {
+                        shipCheck = true;
+                    }
+                }
+                if (shipCheck) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }  
             else {
                 return true;
             }
