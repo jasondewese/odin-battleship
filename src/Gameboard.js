@@ -1,5 +1,6 @@
 import { Ship } from "./Ship";
 import { Game } from "./Game";
+import { displayController } from "./displayController";
 
 const Gameboard = () => {
     const _BOARDSIZE = 10;
@@ -142,7 +143,9 @@ const Gameboard = () => {
         if (typeof _board[x1][y1] === 'object') {
             _shipList[_board[x1][y1].ship].hit(_board[x1][y1].shipIndex);
             _shotsFired[x1][y1] = _HIT;
-            return 'HIT';
+
+
+            return 'HIT'; 
         }
         else {
             _shotsFired[x1][y1] = _MISS;

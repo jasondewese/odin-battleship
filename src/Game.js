@@ -58,9 +58,7 @@ const Game = (() => {
             }
            
         }
-        */
-
-        
+        */    
         let previousShipsY = [];
         
         for (let i = 0; i < 5; i++) {
@@ -89,7 +87,6 @@ const Game = (() => {
                 previousShipsY.push(y1);
             }
         }
-        
     }
 
     const initGame = () => {
@@ -143,12 +140,11 @@ const Game = (() => {
     const _changeTurn = () => {
         if (!_gameOver) {
             turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
+            
             displayController.addCurrentTurnToMessage(turn);
-            if (turn === 'COMP') {
-                
+            if (turn === 'COMP') {     
                 //add 1 second delay to computer turn to feel more natural
                 setTimeout(function() {
-                    
                     _processCompAttack();          
                     _changeTurn();
                     document.querySelector('.click-blocker').style.display = 'none';

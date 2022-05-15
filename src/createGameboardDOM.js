@@ -102,9 +102,13 @@ const createGameboardDOM = (() => {
                 const boardCell = document.createElement('div');
                 boardCell.classList.add('board-cell');
                 boardCell.id = 'comp'+i+j;
+
+                /* this makes computer ships visible
                 if (typeof compBoard.getBoard()[i][j] === "object") {
                     boardCell.classList.add('ship-cell');
-                 }                
+                }     
+                */
+
                 boardCell.addEventListener('click', function () {
                     if (!Game.getGameOver()) {
                         Game.gameTurn(player, playerBoard, compBoard, i, j);

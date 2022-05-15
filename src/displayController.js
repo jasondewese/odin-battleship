@@ -7,7 +7,7 @@ const displayController = (() => {
 
     const shotResult = (shot, x, y) => {
         message.textContent = shot;
-        //message.textContent += `. Attack received at ${x},${y}. `;
+       
     }
 
     const addCurrentTurnToMessage = (turn) => {
@@ -24,7 +24,11 @@ const displayController = (() => {
         message.textContent = msg;
     }
 
-    return {placeShipsMessage, shotResult, addCurrentTurnToMessage, displayMessage};
+    const addShipSunkMessage = () => {
+        message.textContent += '. You sunk a ship!';
+    }
+
+    return {placeShipsMessage, shotResult, addCurrentTurnToMessage, displayMessage, addShipSunkMessage};
 })();
 
 export {displayController};
