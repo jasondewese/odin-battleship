@@ -11,7 +11,13 @@ const displayController = (() => {
     }
 
     const addCurrentTurnToMessage = (turn) => {
-        message.textContent += '. ' + turn + ' turn.';
+        if (turn === 'PLAYER') {
+            message.textContent += '. Player turn. Click a square to launch an attack!';
+        }
+        else {
+            message.textContent += '. Computer taking turn. Attacking...';
+        }
+        
     }
 
     const displayMessage = (msg) => {

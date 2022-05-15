@@ -141,8 +141,11 @@ const Game = (() => {
             turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
             displayController.addCurrentTurnToMessage(turn);
             if (turn === 'COMP') {
-                _processCompAttack();
-                _changeTurn();
+                setTimeout(function() {
+                    _processCompAttack();          
+                    _changeTurn();
+                }, 2000);
+                
             }
         }
     }
@@ -155,7 +158,7 @@ const Game = (() => {
         else if (turn === 'COMP') {
             let randX = mathLogic.getRandomInt(0, 10);
             let randY = mathLogic.getRandomInt(0, 10);
-            shot = setTimeout(currPlayer.attack(enemyBoard, randX, randY), 2000);
+            shot = currPlayer.attack(enemyBoard, randX, randY);
         }
         
         let attackedBoard = turn === 'PLAYER' ? 'comp' : 'player';
