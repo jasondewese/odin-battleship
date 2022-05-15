@@ -93,6 +93,10 @@ const Game = (() => {
     }
 
     const initGame = () => {
+        turn = 'PLAYER';
+        _gameOver = false;
+        document.querySelector('.click-blocker').style.display = 'none';
+
         _placeCompShips();
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
@@ -141,10 +145,14 @@ const Game = (() => {
             turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
             displayController.addCurrentTurnToMessage(turn);
             if (turn === 'COMP') {
+                
+                //add 1 second delay to computer turn to feel more natural
                 setTimeout(function() {
+                    
                     _processCompAttack();          
                     _changeTurn();
-                }, 2000);
+                    document.querySelector('.click-blocker').style.display = 'none';
+                }, 1000);
                 
             }
         }
@@ -154,6 +162,7 @@ const Game = (() => {
         let shot;
         if (turn === 'PLAYER') {
             shot = currPlayer.attack(enemyBoard, x, y);
+            document.querySelector('.click-blocker').style.removeProperty('display');
         }
         else if (turn === 'COMP') {
             let randX = mathLogic.getRandomInt(0, 10);

@@ -91,6 +91,15 @@ main {
 .invalid-cell:hover {
     cursor: not-allowed;
 }
+
+.click-blocker {
+    background-color: rgba(1, 1, 1, 0.1);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
 /*End Main game area style*/
 
 /*Footer style*/
