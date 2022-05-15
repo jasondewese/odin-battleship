@@ -2,6 +2,7 @@ import { createGameboardDOM } from "./createGameboardDOM";
 import { Gameboard } from "./Gameboard";
 import { Player } from "./Player";
 import { mathLogic } from "./mathLogic";
+import { displayController } from "./displayController";
 
 const Game = (() => {
 
@@ -14,6 +15,10 @@ const Game = (() => {
 
     const getGameOver = () => {
         return _gameOver;
+    }
+
+    const getTurn = () => {
+        return turn;
     }
 
     const _placeCompShips = () => {
@@ -91,7 +96,7 @@ const Game = (() => {
         _placeCompShips();
 
         createGameboardDOM.initBoards(player, compPlayer, playerBoard, compBoard);
-        console.log('Click to place your ships');
+        displayController.placeShipsMessage();
     }
 
     const restartGame = () => {
@@ -120,8 +125,7 @@ const Game = (() => {
         
         let attackedBoard = turn === 'PLAYER' ? 'comp' : 'player';
 
-        console.log(shot);
-        console.log(`Attack received at ${randX},${randY}`);
+        displayController.shotResult(shot, randX, randY);
 
         let attackedCell = document.getElementById(attackedBoard+randX+randY);
         if (shot === 'HIT') {
@@ -135,7 +139,7 @@ const Game = (() => {
     const _changeTurn = () => {
         if (!_gameOver) {
             turn = turn === 'PLAYER' ? 'COMP' : 'PLAYER';
-            console.log(turn + ' turn.');
+            displayController.addCurrentTurnToMessage(turn);
             if (turn === 'COMP') {
                 _processCompAttack();
                 _changeTurn();
@@ -151,13 +155,13 @@ const Game = (() => {
         else if (turn === 'COMP') {
             let randX = mathLogic.getRandomInt(0, 10);
             let randY = mathLogic.getRandomInt(0, 10);
-            shot = currPlayer.attack(enemyBoard, randX, randY);
+            shot = setTimeout(currPlayer.attack(enemyBoard, randX, randY), 2000);
         }
         
         let attackedBoard = turn === 'PLAYER' ? 'comp' : 'player';
 
-        console.log(shot);
-        console.log(`Attack received at ${x},${y}`);
+        displayController.shotResult(shot, x, y);
+        
 
         let attackedCell = document.getElementById(attackedBoard+x+y);
         if (shot === 'HIT') {
@@ -167,15 +171,16 @@ const Game = (() => {
             attackedCell.classList.add('miss-cell');
         }
 
-        let playerMsg = currPlayer.isPlayerHuman() ? 'You win!' : 'Computer player wins!';
+        let gameOverMsg = currPlayer.isPlayerHuman() ? 'You win!' : 'Computer player wins!';
+        gameOverMsg = 'Game Over. ' + gameOverMsg;
         if (enemyBoard.isAllSunk()) {
-            console.log(playerMsg);
+            displayController.displayMessage(gameOverMsg);
             _gameOver = true;
         }   
         _changeTurn();
     }
 
-    return {initGame, gameTurn, getGameOver, restartGame};
+    return {initGame, gameTurn, getGameOver, restartGame, getTurn};
 
 })();
 
